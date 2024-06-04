@@ -1,0 +1,46 @@
+name: taskmange
+description: A new Flutter project.
+version: 1.0.0+1
+environment: 
+  sdk: '>=2.12.0 <3.0.0'
+dependencies: 
+  flutter: 
+    sdk: flutter
+  flutter_localizations: 
+    sdk: flutter
+  flutter_bloc: ^8.0.0
+  connectivity_plus: ^2.3.6
+  shared_preferences: ^2.0.15
+  cached_network_image: ^3.2.1
+  flutter_svg: ^1.1.6
+  equatable: ^2.0.0
+  google_sign_in: ^6.2.1
+  flutter_login_facebook: ^1.9.0
+  flutter_switch: ^0.3.2
+  smooth_page_indicator: ^1.0.0+2
+  intl: ^0.17.0
+  permission_handler: ^10.0.0
+  images_picker: ^1.2.11
+  file_picker: ^4.6.1
+  dio: ^5.0.3
+dev_dependencies: 
+  flutter_test: 
+    sdk: flutter
+flutter: 
+  uses-material-design: true
+  assets: 
+    - assets/
+    - assets/images/
+  fonts: 
+    - family: Josefin Sans
+      fonts: 
+        - asset: assets/fonts/JosefinSansRegular.ttf
+          weight: 400
+    - family: Poppins
+      fonts: 
+        - asset: assets/fonts/PoppinsRegular.ttf
+          weight: 400
+    - family: Roboto
+      fonts: 
+        - asset: assets/fonts/RobotoRegular.ttf
+          weight: 400
