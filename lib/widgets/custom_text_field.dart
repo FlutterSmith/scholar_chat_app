@@ -15,6 +15,7 @@ class CustomFormTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: const TextStyle(color: Colors.white),
       obscureText: obsecureText!,
       validator: (data) {
         if (data!.isEmpty) {
