@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -21,17 +20,19 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
+          isLoading = false;
           Navigator.pushNamed(context, ChatScreen.id);
         } else if (state is LoginFailure) {
-          showSnackBar(context, 'something went wrong');
+          isLoading = false;
+          showSnackBar(context, state.errMessage);
         }
       },
-      child: ModalProgressHUD(
+      builder: (context, state) => ModalProgressHUD(
         inAsyncCall: isLoading,
         child: Scaffold(
           backgroundColor: kPimaryColor,
@@ -97,34 +98,13 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(
                     height: 15,
-                  ), c
+                  ),
                   CustomButton(
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
-                        isLoading = true;
-
-                        try {
-                          await loginUser(email: email!, password: password!);
-                          Navigator.pushNamed(context, ChatScreen.id,
-                              arguments: email);
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'user-not-found') {
-                            showSnackBar(
-                                context, 'No user found for that email.');
-                          } else if (e.code == 'wrong-password') {
-                            showSnackBar(
-                              context,
-                              'Wrong password provided for that user.',
-                            );
-                          }
-                        } catch (ex) {
-                          showSnackBar(
-                            context,
-                            'there was an error',
-                          );
-                        }
-                        isLoading = false;
-                      }
+                        BlocProvider.of<LoginCubit>(context)
+                            .loginUser(email: email!, password: password!);
+                      } else {}
                     },
                     text: 'LOGIN',
                   ),
@@ -161,6 +141,4 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-  
-  loginUser({required String email, required String password}) {}
 }
