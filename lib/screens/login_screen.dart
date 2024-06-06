@@ -4,8 +4,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/constants.dart';
 import 'package:scholar_chat/helper/show_snack_bar.dart';
 import 'package:scholar_chat/screens/chat_screen.dart';
+import 'package:scholar_chat/screens/cubits/auth_cubit/auth_cubit.dart';
 import 'package:scholar_chat/screens/cubits/chat_cubit/chat_cubit.dart';
-import 'package:scholar_chat/screens/cubits/login_cubit/login_cubit.dart';
 import 'package:scholar_chat/screens/register_screen.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginLoading) {
           isLoading = true;
@@ -104,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                   CustomButton(
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
-                        BlocProvider.of<LoginCubit>(context)
+                        BlocProvider.of<AuthCubit>(context)
                             .loginUser(email: email!, password: password!);
                       } else {}
                     },
