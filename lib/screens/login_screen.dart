@@ -4,6 +4,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/constants.dart';
 import 'package:scholar_chat/helper/show_snack_bar.dart';
 import 'package:scholar_chat/screens/chat_screen.dart';
+import 'package:scholar_chat/screens/cubits/chat_cubit/chat_cubit.dart';
 import 'package:scholar_chat/screens/cubits/login_cubit/login_cubit.dart';
 import 'package:scholar_chat/screens/register_screen.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
@@ -25,8 +26,9 @@ class LoginScreen extends StatelessWidget {
         if (state is LoginLoading) {
           isLoading = true;
         } else if (state is LoginSuccess) {
+          BlocProvider.of<ChatCubit>(context).getMessage();
+          Navigator.pushNamed(context, ChatScreen.id, arguments: email);
           isLoading = false;
-          Navigator.pushNamed(context, ChatScreen.id);
         } else if (state is LoginFailure) {
           isLoading = false;
           showSnackBar(context, state.errMessage);
